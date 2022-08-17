@@ -22,7 +22,6 @@ contract FundMe {
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
 
-    // Could we make this constant?  /* hint: no! We should make it immutable! */
     address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 50 * 10**18;
 
@@ -81,9 +80,7 @@ contract FundMe {
     }
 
     function cheaperWithdraw() public payable onlyOwner {
-        //on enregistre l'array dans le memory pour lire et ecrire comme on le veut et ensuite enregitrer dans le storage pour economiser du gas
         address[] memory funders = s_funders;
-        //mappings can't be in memory, sorry
 
         for (
             uint256 funderIndex = 0;
@@ -120,12 +117,3 @@ contract FundMe {
         return s_priceFeed;
     }
 }
-
-// Concepts we didn't cover yet (will cover in later sections)
-// 1. Enum
-// 2. Events
-// 3. Try / Catch
-// 4. Function Selector
-// 5. abi.encode / decode
-// 6. Hash with keccak256
-// 7. Yul / Assembly
